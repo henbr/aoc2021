@@ -22,7 +22,6 @@ pub fn part1(_: []i32) i32 {
     return 0;
 }
 
-
 pub fn part2(_: []i32) i32 {
     return 0;
 }
@@ -37,9 +36,8 @@ pub fn main() anyerror!void {
     const input = try readInput(&arena, &lines_it);
 
     const part1_result = part1(input);
-    info("Part 1: {d}", .{part1_result});  
+    info("Part 1: {d}", .{part1_result});
 
     const part2_result = part2(input);
-    info("Part 2: {d}", .{part2_result});  
+    info("Part 2: {d}", .{part2_result});
 }
-
