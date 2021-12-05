@@ -5,7 +5,7 @@ const ArenaAllocator = std.heap.ArenaAllocator;
 
 const info = std.log.info;
 
-pub fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anyerror![]i32 {
+fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anyerror![]i32 {
     var allocator = &arena.allocator;
     var numbers = try std.ArrayList(i32).initCapacity(allocator, 4096);
     while (lines_it.next()) |line| {
@@ -18,11 +18,11 @@ pub fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anye
     return numbers.items;
 }
 
-pub fn part1(_: []i32) i32 {
+fn part1(_: []i32) i32 {
     return 0;
 }
 
-pub fn part2(_: []i32) i32 {
+fn part2(_: []i32) i32 {
     return 0;
 }
 
