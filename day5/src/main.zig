@@ -16,7 +16,7 @@ const Line = struct {
     y1: i32,
 };
 
-pub fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anyerror![]Line {
+fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anyerror![]Line {
     var allocator = &arena.allocator;
     var lines = try std.ArrayList(Line).initCapacity(allocator, 4096);
     while (lines_it.next()) |line| {
@@ -39,21 +39,13 @@ pub fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anye
     return lines.items;
 }
 
-pub fn pointToKey(x: i32, y: i32) u32 {
+fn pointToKey(x: i32, y: i32) u32 {
     const ux = @intCast(u32, x);
     const uy = @intCast(u32, y);
     return ((ux & 0xffff) << 16) | (uy & 0xffff);
 }
 
-pub fn keyToPoint(key: u32) struct { x: i32, y: i32 } {
-    const ux = key >> 16;
-    const uy = key & 0xffff;
-    const x = @intCast(u32, ux);
-    const y = @intCast(u32, uy);
-    return .{ .x = x, .y = y };
-}
-
-pub fn countOverlappingPoints(arena: *ArenaAllocator, lines: []Line) anyerror!i32 {
+fn countOverlappingPoints(arena: *ArenaAllocator, lines: []Line) anyerror!i32 {
     var map = std.AutoArrayHashMap(u32, i32).init(&arena.allocator);
     for (lines) |line| {
         const dx = line.x1 - line.x0;
@@ -86,7 +78,7 @@ pub fn countOverlappingPoints(arena: *ArenaAllocator, lines: []Line) anyerror!i3
     return overlaps;
 }
 
-pub fn part1(arena: *ArenaAllocator, lines: []Line) anyerror!i32 {
+fn part1(arena: *ArenaAllocator, lines: []Line) anyerror!i32 {
     var orthogonal = try std.ArrayList(Line).initCapacity(&arena.allocator, lines.len);
     for (lines) |*line| {
         if ((line.x0 == line.x1) or (line.y0 == line.y1)) {
@@ -96,7 +88,7 @@ pub fn part1(arena: *ArenaAllocator, lines: []Line) anyerror!i32 {
     return try countOverlappingPoints(arena, orthogonal.items);
 }
 
-pub fn part2(arena: *ArenaAllocator, lines: []Line) anyerror!i32 {
+fn part2(arena: *ArenaAllocator, lines: []Line) anyerror!i32 {
     return try countOverlappingPoints(arena, lines);
 }
 
