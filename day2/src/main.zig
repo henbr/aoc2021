@@ -3,7 +3,7 @@ const utils = @import("utils");
 const Allocator = std.mem.Allocator;
 const ArenaAllocator = std.heap.ArenaAllocator;
 
-const info = std.log.info;
+const print = utils.print;
 
 const Instruction = union(enum) { Forward: i32, Down: i32, Up: i32 };
 
@@ -26,7 +26,7 @@ pub fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anye
         try numbers.append(inst);
     }
 
-    info("File ok :) Number of inputs: {d}", .{numbers.items.len});
+    print("File ok :) Number of inputs: {d}", .{numbers.items.len});
 
     return numbers.items;
 }
@@ -83,8 +83,8 @@ pub fn main() anyerror!void {
     const input = try readInput(&arena, &lines_it);
 
     const part1_result = part1(input);
-    info("Part 1: {d}", .{part1_result});
+    print("Part 1: {d}", .{part1_result});
 
     const part2_result = part2(input);
-    info("Part 2: {d}", .{part2_result});
+    print("Part 2: {d}", .{part2_result});
 }

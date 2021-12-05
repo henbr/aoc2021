@@ -3,7 +3,7 @@ const utils = @import("utils");
 const Allocator = std.mem.Allocator;
 const ArenaAllocator = std.heap.ArenaAllocator;
 
-const info = std.log.info;
+const print = utils.print;
 
 const Cell = struct {
     number: i32,
@@ -49,7 +49,7 @@ pub fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anye
         try board_lines.append(cells.items[line_start..]);
     }
 
-    info("File ok :) Number of boards: {d}", .{board_count});
+    print("File ok :) Number of boards: {d}", .{board_count});
 
     return Bingo {
         .drawn_numbers = drawn_numbers.items,
@@ -155,8 +155,8 @@ pub fn main() anyerror!void {
     const input = try readInput(&arena, &lines_it);
 
     const part1_result = part1(input);
-    info("Part 1: {d}", .{part1_result});
+    print("Part 1: {d}", .{part1_result});
 
     const part2_result = part2(input);
-    info("Part 2: {d}", .{part2_result});
+    print("Part 2: {d}", .{part2_result});
 }

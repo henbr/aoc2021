@@ -7,7 +7,7 @@ const max = std.math.max;
 const min = std.math.min;
 const clamp = std.math.clamp;
 const absInt = std.math.absInt;
-const info = std.log.info;
+const print = utils.print;
 
 const Line = struct {
     x0: i32,
@@ -34,7 +34,7 @@ fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anyerror
         });
     }
 
-    info("File ok :) Number of inputs: {d}", .{lines.items.len});
+    print("File ok :) Number of inputs: {d}", .{lines.items.len});
 
     return lines.items;
 }
@@ -102,8 +102,8 @@ pub fn main() anyerror!void {
     const input = try readInput(&arena, &lines_it);
 
     const part1_result = try part1(&arena, input);
-    info("Part 1: {d}", .{part1_result});
+    print("Part 1: {d}", .{part1_result});
 
     const part2_result = try part2(&arena, input);
-    info("Part 2: {d}", .{part2_result});
+    print("Part 2: {d}", .{part2_result});
 }

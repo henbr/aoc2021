@@ -83,3 +83,9 @@ pub fn iterateLinesInFile(allocator: *Allocator, file_path: []const u8) anyerror
         .lines_it = lines_it
     };
 }
+
+const writer = std.io.getStdOut().writer();
+pub fn print(comptime format: []const u8, args: anytype) void {
+    writer.print(format, args) catch return;
+    _ = writer.write("\n") catch return;
+}
