@@ -6,8 +6,7 @@ const ArenaAllocator = std.heap.ArenaAllocator;
 const print = utils.print;
 
 fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anyerror![]i32 {
-    var allocator = &arena.allocator;
-    var numbers = try std.ArrayList(i32).initCapacity(allocator, 4096);
+    var numbers = try std.ArrayList(i32).initCapacity(&arena.allocator, 4096);
     while (lines_it.next()) |line| {
         const i = try std.fmt.parseInt(i32, line, 10);
         try numbers.append(i);
