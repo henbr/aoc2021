@@ -12,7 +12,7 @@ const HeightMap = struct {
     width: usize,
     height: usize,
     map: []i32,
-    visited: []i32,
+    visited: []bool,
 };
 
 fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anyerror!HeightMap {
@@ -25,8 +25,8 @@ fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anyerror
         width = line.len;
     }
     print("File ok :) Number of inputs: {d}", .{numbers.items.len});
-    var visited = try arena.allocator.alloc(i32, @intCast(usize, numbers.items.len));
-    std.mem.set(i32, visited, 0);
+    var visited = try arena.allocator.alloc(bool, numbers.items.len);
+    std.mem.set(bool, visited, false);
     return HeightMap{
         .width = width,
         .height = numbers.items.len / width,
@@ -58,11 +58,10 @@ fn calculateBasinSize(hm: *const HeightMap, x: i32, y: i32) i32 {
     }
 
     const offset = @intCast(usize, y) * hm.width + @intCast(usize, x);
-    var id = @intCast(i32, offset);
-    if (hm.visited[offset] == id) {
+    if (hm.visited[offset]) {
         return 0;
     }
-    hm.visited[offset] = id;
+    hm.visited[offset] = true;
 
     var h = getHeight(hm, x, y, 0);
     if (h == 9) {
