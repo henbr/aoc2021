@@ -66,10 +66,6 @@ fn part1And2(arena: *ArenaAllocator, lines: [][]u8) anyerror!Result {
     };
 }
 
-fn part2(_: [][]u8) i32 {
-    return 0;
-}
-
 pub fn main() anyerror!void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
