@@ -33,7 +33,6 @@ pub fn part1(numbers: []i32) i32 {
     return num;
 }
 
-
 pub fn part2(numbers: []i32) i32 {
     var num: i32 = 0;
     var prev: i32 = undefined;
@@ -63,9 +62,8 @@ pub fn main() anyerror!void {
     const input = try readInput(&arena, &lines_it);
 
     const part1_result = part1(input);
-    print("Part 1: number of increases: {d}", .{part1_result});  
+    print("Part 1: number of increases: {d}", .{part1_result});
 
     const part2_result = part2(input);
-    print("Part 2: number of increases: {d}", .{part2_result});  
+    print("Part 2: number of increases: {d}", .{part2_result});
 }
-

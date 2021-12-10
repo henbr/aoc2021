@@ -14,7 +14,7 @@ fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anyerror
     return lines.items;
 }
 
-const Result = struct {part1: i32, part2: i64};
+const Result = struct { part1: i32, part2: i64 };
 
 fn part1And2(arena: *ArenaAllocator, lines: [][]u8) anyerror!Result {
     var stack = try std.ArrayList(u8).initCapacity(&arena.allocator, 4096);
@@ -24,11 +24,11 @@ fn part1And2(arena: *ArenaAllocator, lines: [][]u8) anyerror!Result {
         stack.clearRetainingCapacity();
         var corrupt_score: i32 = 0;
         for (line) |chr| {
-            if (chr == '(' or chr == '[' or chr == '{' or chr == '<' ) {
+            if (chr == '(' or chr == '[' or chr == '{' or chr == '<') {
                 try stack.append(chr);
-            } else if (chr == ')' or  chr == ']' or chr == '}' or chr == '>') {
+            } else if (chr == ')' or chr == ']' or chr == '}' or chr == '>') {
                 const opening = stack.pop();
-                if (corrupt_score ==  0) {
+                if (corrupt_score == 0) {
                     if (chr == ')' and opening != '(') corrupt_score = 3;
                     if (chr == ']' and opening != '[') corrupt_score = 57;
                     if (chr == '}' and opening != '{') corrupt_score = 1197;
@@ -38,12 +38,12 @@ fn part1And2(arena: *ArenaAllocator, lines: [][]u8) anyerror!Result {
                 unreachable;
             }
         }
-        corrupt_score_sum += corrupt_score;   
+        corrupt_score_sum += corrupt_score;
 
-        var incomplete_score: i64 = 0;
         if (corrupt_score == 0) {
-            while(stack.popOrNull()) |chr| {
-                const chr_score: i32 = switch(chr) {
+            var incomplete_score: i64 = 0;
+            while (stack.popOrNull()) |chr| {
+                const chr_score: i32 = switch (chr) {
                     '(' => 1,
                     '[' => 2,
                     '{' => 3,
@@ -60,7 +60,7 @@ fn part1And2(arena: *ArenaAllocator, lines: [][]u8) anyerror!Result {
     std.sort.sort(i64, incomplete_scores.items, {}, comptime std.sort.desc(i64));
     const incomplete_score_middle = incomplete_scores.items[incomplete_scores.items.len / 2];
 
-    return Result {
+    return Result{
         .part1 = corrupt_score_sum,
         .part2 = incomplete_score_middle,
     };

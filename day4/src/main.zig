@@ -5,10 +5,7 @@ const ArenaAllocator = std.heap.ArenaAllocator;
 
 const print = utils.print;
 
-const Cell = struct {
-    number: i32,
-    marked: bool
-};
+const Cell = struct { number: i32, marked: bool };
 
 const Bingo = struct {
     drawn_numbers: []i32,
@@ -40,18 +37,18 @@ pub fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anye
             if (num.len == 0) {
                 continue;
             }
-            try cells.append(Cell {
+            try cells.append(Cell{
                 .number = try std.fmt.parseInt(i32, num, 10),
                 .marked = false,
             });
-        }       
+        }
 
         try board_lines.append(cells.items[line_start..]);
     }
 
     print("File ok :) Number of boards: {d}", .{board_count});
 
-    return Bingo {
+    return Bingo{
         .drawn_numbers = drawn_numbers.items,
         .board_count = board_count,
         .board_lines = board_lines.items,
@@ -84,7 +81,7 @@ fn getBoardScore(board: [][]const Cell, drawn_number: i32) i32 {
                 sum += cell.number;
             }
         }
-    }   
+    }
     return sum * drawn_number;
 }
 
@@ -105,7 +102,7 @@ fn playBoard(bingo: Bingo, board_index: usize, drawn_number: i32) ?i32 {
             }
         }
     }
-    
+
     return null;
 }
 
@@ -116,9 +113,9 @@ pub fn part1(bingo: Bingo) i32 {
             if (playBoard(bingo, board_index, drawn_number)) |score| {
                 return score;
             }
-        }       
+        }
     }
-    
+
     // No winner
     return -1;
 }
@@ -138,9 +135,9 @@ pub fn part2(bingo: Bingo) i32 {
                     return score;
                 }
             }
-        }       
+        }
     }
-    
+
     // No winner
     return -1;
 }

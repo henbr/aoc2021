@@ -60,7 +60,7 @@ fn part2(inputFishes: []i32) u64 {
     var sum: u64 = 0;
     for (fishCountByAge) |count| {
         sum += count;
-    } 
+    }
 
     return sum;
 }

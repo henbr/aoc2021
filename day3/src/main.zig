@@ -17,7 +17,6 @@ pub fn readInput(arena: *ArenaAllocator, lines_it: *utils.FileLineIterator) anye
     return numbers.items;
 }
 
-
 pub fn part1(numbers: [][]const u8) i64 {
     if (numbers.len == 0) {
         return @intCast(i64, -1); // ???
@@ -53,10 +52,7 @@ pub fn part1(numbers: [][]const u8) i64 {
     return power_consumption;
 }
 
-const Strategy = enum {
-    MostCommon,
-    LeastCommon
-};
+const Strategy = enum { MostCommon, LeastCommon };
 
 pub fn getRemainingNumber(arena: *ArenaAllocator, strategy: Strategy, numbers: [][]const u8) anyerror!i64 {
     var allocator = &arena.allocator;
@@ -79,7 +75,7 @@ pub fn getRemainingNumber(arena: *ArenaAllocator, strategy: Strategy, numbers: [
         var bit_to_keep: u8 = undefined;
         if (strategy == Strategy.MostCommon and popcount >= (remaining.items.len - popcount)) {
             bit_to_keep = '1';
-        } else if (strategy == Strategy.LeastCommon and popcount < (remaining.items.len - popcount)) { 
+        } else if (strategy == Strategy.LeastCommon and popcount < (remaining.items.len - popcount)) {
             bit_to_keep = '1';
         } else {
             bit_to_keep = '0';
