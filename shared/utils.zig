@@ -2,13 +2,13 @@ const std = @import("std");
 const Allocator = std.mem.Allocator;
 
 pub const LineIterator = struct {
-    buffer: []const u8,
+    buffer: []u8,
     index: usize,
 
     const Self = @This();
 
     /// Returns the next line
-    pub fn next(self: *Self) ?[]const u8 {
+    pub fn next(self: *Self) ?[]u8 {
         if (self.index == self.buffer.len) {
             return null;
         }
@@ -33,7 +33,7 @@ pub const LineIterator = struct {
     }
 };
 
-pub fn iterate_lines(buffer: []const u8) LineIterator {
+pub fn iterate_lines(buffer: []u8) LineIterator {
     return .{
         .index = 0,
         .buffer = buffer,
@@ -47,13 +47,13 @@ pub const InputError = error{
 
 pub const FileLineIterator = struct {
     allocator: *Allocator,
-    buffer: []const u8,
+    buffer: []u8,
     lines_it: LineIterator,
 
     const Self = @This();
 
     /// Returns the next line
-    pub fn next(self: *Self) ?[]const u8 {
+    pub fn next(self: *Self) ?[]u8 {
         return self.lines_it.next();
     }
 
